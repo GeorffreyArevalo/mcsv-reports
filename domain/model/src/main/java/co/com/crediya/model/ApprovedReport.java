@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class ApprovedReport {
 
     private String metric;
-    private String value;
+    private Long value;
 
 }

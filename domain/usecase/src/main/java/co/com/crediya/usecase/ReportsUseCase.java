@@ -1,5 +1,6 @@
 package co.com.crediya.usecase;
 
+import co.com.crediya.model.ApprovedReport;
 import co.com.crediya.model.gateways.ApprovedReportRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
@@ -10,7 +11,13 @@ public class ReportsUseCase {
     private final ApprovedReportRepositoryPort repository;
 
     public Mono<Void> incrementValueToOne(String metric) {
-        return repository.incrementValueToOne(metric);
+        return repository.findByMetric(metric)
+                .switchIfEmpty( Mono.just(ApprovedReport.builder().metric(metric).value(0L).build()) )
+                .log()
+                .flatMap( approvedReport -> {
+                    approvedReport.setValue(approvedReport.getValue() + 1);
+                    return repository.update(approvedReport);
+                });
     }
 
 }

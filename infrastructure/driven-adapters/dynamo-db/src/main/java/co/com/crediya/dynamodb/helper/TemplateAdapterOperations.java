@@ -54,8 +54,8 @@ public abstract class TemplateAdapterOperations<E, K, V> {
         return Mono.fromFuture(table.deleteItem(toEntity(model))).map(this::toModel);
     }
 
-    public Mono<E> updateItem(UpdateItemEnhancedRequest<V> updateItemEnhancedRequest ) {
-        return Mono.fromFuture(table.updateItem(updateItemEnhancedRequest)).map(this::toModel);
+    public Mono<E> updateItem(E model) {
+        return Mono.fromFuture(table.updateItem(toEntity(model))).map(this::toModel);
     }
 
     public Mono<List<E>> query(QueryEnhancedRequest queryExpression) {

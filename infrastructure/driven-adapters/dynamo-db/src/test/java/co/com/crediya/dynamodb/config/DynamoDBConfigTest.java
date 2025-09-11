@@ -24,20 +24,7 @@ class DynamoDBConfigTest {
     @Test
     void testAmazonDynamoDB() {
 
-        DynamoDbAsyncClient result = dynamoDBConfig.amazonDynamoDB(
-                "http://aws.dynamo.test",
-                "region",
-                publisher);
-
-        assertNotNull(result);
-    }
-
-    @Test
-    void testAmazonDynamoDBAsync() {
-
-        DynamoDbAsyncClient result = dynamoDBConfig.amazonDynamoDBAsync(
-                publisher,
-                "region");
+        DynamoDbAsyncClient result = dynamoDBConfig.amazonDynamoDB("region");
 
         assertNotNull(result);
     }
