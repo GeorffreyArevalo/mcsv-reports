@@ -2,6 +2,7 @@ package co.com.crediya.sqs.listener.helper;
 
 import co.com.crediya.sqs.listener.SQSProcessor;
 import co.com.crediya.sqs.listener.config.SQSProperties;
+import co.com.crediya.usecase.ReportsUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,6 +29,8 @@ class SQSListenerTest {
 
     @Mock
     private SQSProperties sqsProperties;
+
+    private ReportsUseCase reportsUseCase;
 
     @BeforeEach
     void setUp() {
@@ -57,7 +60,7 @@ class SQSListenerTest {
         var sqsListener = SQSListener.builder()
                 .client(asyncClient)
                 .properties(sqsProperties)
-                .processor(new SQSProcessor())
+                .processor(new SQSProcessor(reportsUseCase))
                 .operation("operation")
                 .build();
 

@@ -1,0 +1,13 @@
+
+spring:
+  config:
+    import: ${AWS_NAME_SECRET_MANAGER}
+
+aws:
+  dynamodb:
+    region: ${AWS_REGION_DYNAMO}
+
+entrypoint:
+  sqs:
+    region: ${AWS_REGION_SQS_LISTER}
+    queueUrl: ${URL_QUEUE_LISTENER}

@@ -5,6 +5,8 @@ import co.com.crediya.model.gateways.ApprovedReportRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 public class ReportsUseCase {
 
@@ -16,6 +18,7 @@ public class ReportsUseCase {
                 .log()
                 .flatMap( approvedReport -> {
                     approvedReport.setValue(approvedReport.getValue() + 1);
+                    approvedReport.setLastUpdated(LocalDateTime.now());
                     return repository.update(approvedReport);
                 });
     }

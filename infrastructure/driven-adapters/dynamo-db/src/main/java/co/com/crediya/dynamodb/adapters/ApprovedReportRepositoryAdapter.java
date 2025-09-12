@@ -17,7 +17,7 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedAsyncClient;
 public class ApprovedReportRepositoryAdapter extends TemplateAdapterOperations<ApprovedReport, String, ApprovedReportEntity> implements ApprovedReportRepositoryPort {
 
     public ApprovedReportRepositoryAdapter(DynamoDbEnhancedAsyncClient connectionFactory, ObjectMapper mapper) {
-        super(connectionFactory, mapper, d -> mapper.map(d, ApprovedReport.class ), "reports");
+        super(connectionFactory, mapper, d -> mapper.map(d, ApprovedReport.class ), "approved_reports");
     }
 
     public Mono<Void> update( ApprovedReport approvedReport ) {

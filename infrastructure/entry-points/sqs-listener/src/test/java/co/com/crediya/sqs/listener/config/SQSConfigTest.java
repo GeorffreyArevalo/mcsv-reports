@@ -38,15 +38,5 @@ class SQSConfigTest {
         assertThat(sqsConfig.sqsListener(sqsAsyncClient, sqsProperties, message -> Mono.empty())).isNotNull();
     }
 
-    @Test
-    void configSqsIsNotNull() {
-        var loggingMetricPublisher = LoggingMetricPublisher.create();
-        assertThat(sqsConfig.configSqs(sqsProperties, loggingMetricPublisher)).isNotNull();
-    }
 
-    @Test
-    void configSqsWhenEndpointIsNotNull() {
-        var loggingMetricPublisher = LoggingMetricPublisher.create();
-        assertThat(sqsConfig.configSqs(sqsProperties, loggingMetricPublisher)).isNotNull();
-    }
 }

@@ -1,21 +1,16 @@
 server:
-  port: 8080
+  port: 8082
 spring:
   application:
     name: "reports"
   devtools:
     add-properties: false
   profiles:
+    active: "${PROFILE:dev}"
     include: null
-
-aws:
-  dynamodb:
-    region: "us-east-1"
 
 entrypoint:
   sqs:
-    region: "us-east-1"
-    queueUrl: "https://sqs.us-east-1.amazonaws.com/119694354572/reports-listener"
     waitTimeSeconds: 20
     maxNumberOfMessages: 10
     visibilityTimeoutSeconds: 10

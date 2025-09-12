@@ -19,7 +19,7 @@ public class SQSProcessor implements Function<Message, Mono<Void>> {
     @Override
     public Mono<Void> apply(Message message) {
         log.info("Received SQS message: {}", message.body());
-        return reportsUseCase.incrementValueToOne(message.body());
+        return reportsUseCase.incrementValueToOne(message.body().replace("\"", ""));
 
     }
 }

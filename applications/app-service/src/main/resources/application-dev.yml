@@ -1,0 +1,9 @@
+
+aws:
+  dynamodb:
+    region: "us-east-1"
+
+entrypoint:
+  sqs:
+    region: "us-east-1"
+    queueUrl: "https://sqs.us-east-1.amazonaws.com/119694354572/reports-listener"

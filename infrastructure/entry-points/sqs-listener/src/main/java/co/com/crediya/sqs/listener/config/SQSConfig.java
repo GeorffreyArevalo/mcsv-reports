@@ -15,7 +15,6 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsAsyncClient;
 import software.amazon.awssdk.services.sqs.model.Message;
 
-import java.net.URI;
 import java.util.function.Function;
 
 @Configuration
