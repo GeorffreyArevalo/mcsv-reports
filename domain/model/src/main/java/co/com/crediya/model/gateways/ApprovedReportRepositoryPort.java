@@ -9,4 +9,5 @@ public interface ApprovedReportRepositoryPort {
 
     Mono<ApprovedReport> findByMetric(String metric);
 
+
 }

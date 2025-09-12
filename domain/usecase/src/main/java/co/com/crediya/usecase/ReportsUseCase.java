@@ -23,4 +23,8 @@ public class ReportsUseCase {
                 });
     }
 
+    public Mono<ApprovedReport> findByMetric(String metric) {
+        return repository.findByMetric(metric);
+    }
+
 }
