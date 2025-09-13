@@ -8,10 +8,25 @@ spring:
   profiles:
     active: "${PROFILE:dev}"
     include: null
-
 entrypoint:
   sqs:
     waitTimeSeconds: 20
     maxNumberOfMessages: 10
     visibilityTimeoutSeconds: 10
     numberOfThreads: 1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,prometheus"
+  endpoint:
+    health:
+      probes:
+        enabled: true
+cors:
+  allowed-origins: "http://localhost:4200,http://localhost:8080"
+
+
+routes:
+  paths:
+    reports: "/api/v1/reports"

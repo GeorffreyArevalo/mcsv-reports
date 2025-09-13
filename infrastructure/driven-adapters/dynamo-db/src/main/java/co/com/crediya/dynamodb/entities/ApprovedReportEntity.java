@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 
-import java.time.LocalDateTime;
-
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +15,7 @@ public class ApprovedReportEntity {
 
     private String metric;
     private Long value;
-    private LocalDateTime lastUpdated;
+    private String lastUpdated;
 
     @DynamoDbPartitionKey
     @DynamoDbAttribute("metric")
@@ -31,7 +29,7 @@ public class ApprovedReportEntity {
     }
 
     @DynamoDbAttribute("last_updated")
-    public LocalDateTime getLastUpdated() {
+    public String getLastUpdated() {
         return lastUpdated;
     }
 

@@ -27,7 +27,8 @@ public class ApprovedReportRepositoryAdapter extends TemplateAdapterOperations<A
 
     @Override
     public Mono<ApprovedReport> findByMetric(String metric) {
-        return super.getById(metric);
+        log.info("Finding ApprovedReport by metric {}", metric);
+        return super.getById(metric).log();
     }
 
 }
