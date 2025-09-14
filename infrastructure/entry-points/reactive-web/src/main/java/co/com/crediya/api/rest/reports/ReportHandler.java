@@ -4,6 +4,7 @@ import co.com.crediya.api.dtos.CrediyaResponseDTO;
 import co.com.crediya.api.dtos.reports.ApprovedReportResponseDTO;
 import co.com.crediya.api.mappers.ReportsMapper;
 import co.com.crediya.api.util.HandlersResponseUtil;
+import co.com.crediya.enums.CodesMetrics;
 import co.com.crediya.exceptions.enums.ExceptionStatusCode;
 import co.com.crediya.usecase.ReportsUseCase;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,7 +43,7 @@ public class ReportHandler {
     )
     public Mono<ServerResponse> listenGetReport(ServerRequest serverRequest) {
 
-        String type =  serverRequest.queryParam("type").orElse("");
+        String type =  serverRequest.queryParam("type").orElse(CodesMetrics.METRIC_INCREASE_REPORTS_APPROVED.getValue());
 
         return reportsUseCase.findByMetric(type)
                 .map(reportsMapper::modelToResponse)
