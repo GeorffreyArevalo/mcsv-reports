@@ -1,0 +1,3 @@
+routes:
+  paths:
+    reports: "/api/v1/reports"

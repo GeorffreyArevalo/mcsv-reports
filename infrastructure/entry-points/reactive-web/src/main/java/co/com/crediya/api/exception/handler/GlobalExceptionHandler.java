@@ -1,4 +1,4 @@
-package co.com.crediya.api.handler;
+package co.com.crediya.api.exception.handler;
 
 import co.com.crediya.api.dtos.CrediyaResponseDTO;
 import co.com.crediya.api.util.HandlersResponseUtil;

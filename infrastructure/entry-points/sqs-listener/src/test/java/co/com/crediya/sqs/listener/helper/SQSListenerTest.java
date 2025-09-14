@@ -30,6 +30,7 @@ class SQSListenerTest {
     @Mock
     private SQSProperties sqsProperties;
 
+    @Mock
     private ReportsUseCase reportsUseCase;
 
     @BeforeEach
