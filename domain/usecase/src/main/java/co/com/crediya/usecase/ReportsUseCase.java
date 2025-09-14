@@ -1,5 +1,6 @@
 package co.com.crediya.usecase;
 
+import co.com.crediya.enums.CodesMetrics;
 import co.com.crediya.exceptions.CrediyaResourceNotFoundException;
 import co.com.crediya.exceptions.enums.ExceptionMessages;
 import co.com.crediya.model.ApprovedReport;
@@ -18,12 +19,29 @@ public class ReportsUseCase {
     private final ApprovedReportRepositoryPort approvedReportRepository;
     private final ReportRepositoryPort reportRepository;
 
-    public Mono<Void> incrementValueToOne(String metric) {
-        return approvedReportRepository.findByMetric(metric)
-                .switchIfEmpty( Mono.just(ApprovedReport.builder().metric(metric).value(0L).build()) )
+    public Mono<Void> incrementValuesReports(Long amount) {
+        return Mono.zip(
+                incrementValueToOne(), increaseAmount(amount)
+        ).then(Mono.empty());
+    }
+
+    private Mono<Void> incrementValueToOne() {
+        return approvedReportRepository.findByMetric(CodesMetrics.METRIC_INCREASE_REPORTS_APPROVED.getValue())
+                .switchIfEmpty( Mono.just(ApprovedReport.builder().metric(CodesMetrics.METRIC_INCREASE_REPORTS_APPROVED.getValue()).value(0L).build()) )
                 .log()
                 .flatMap( approvedReport -> {
                     approvedReport.setValue(approvedReport.getValue() + 1);
+                    approvedReport.setLastUpdated(LocalDateTime.now().toString());
+                    return approvedReportRepository.update(approvedReport);
+                });
+    }
+
+    private Mono<Void> increaseAmount(Long amount) {
+        return approvedReportRepository.findByMetric(CodesMetrics.METRIC_INCREASE_AMOUNT_REPORTS_APPROVED.getValue())
+                .switchIfEmpty( Mono.just(ApprovedReport.builder().metric(CodesMetrics.METRIC_INCREASE_AMOUNT_REPORTS_APPROVED.getValue()).value(0L).build()) )
+                .log()
+                .flatMap( approvedReport -> {
+                    approvedReport.setValue(approvedReport.getValue() + amount);
                     approvedReport.setLastUpdated(LocalDateTime.now().toString());
                     return approvedReportRepository.update(approvedReport);
                 });
