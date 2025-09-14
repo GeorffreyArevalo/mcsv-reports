@@ -24,8 +24,12 @@ public class SecurityConfig {
 
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .authorizeExchange( exchanges ->
-                        exchanges.pathMatchers( HttpMethod.GET, "/api/v1/reports" ).hasAnyAuthority("SCOPE_ADVISER", "SCOPE_ADMIN")
+                .authorizeExchange( exchange ->
+                        exchange
+                                .pathMatchers(
+                                        "/openapi/**"
+                                ).permitAll()
+                                .pathMatchers( HttpMethod.GET, "/api/v1/reports" ).hasAnyAuthority("SCOPE_ADVISER", "SCOPE_ADMIN")
                                 .anyExchange().authenticated()
                 )
                 .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)

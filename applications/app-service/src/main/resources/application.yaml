@@ -26,6 +26,15 @@ management:
 cors:
   allowed-origins: "http://localhost:4200,http://localhost:8080"
 
+springdoc:
+  swagger-ui:
+    path: /openapi/swagger-ui
+  api-docs:
+    path: /openapi/v3/api-docs
+  packages-to-scan:
+    - co.com.crediya
+  paths-to-match:
+    - /**
 
 routes:
   paths:
