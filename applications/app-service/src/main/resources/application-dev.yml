@@ -1,4 +1,6 @@
 server:
+  servlet:
+    context-path: /reports
   port: 8082
 aws:
   dynamodb:

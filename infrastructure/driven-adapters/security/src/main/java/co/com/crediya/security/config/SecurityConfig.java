@@ -27,9 +27,9 @@ public class SecurityConfig {
                 .authorizeExchange( exchange ->
                         exchange
                                 .pathMatchers(
-                                        "/openapi/**"
+                                        "/reports/openapi/**"
                                 ).permitAll()
-                                .pathMatchers( HttpMethod.GET, "/api/v1/reports" ).hasAnyAuthority("SCOPE_ADVISER", "SCOPE_ADMIN")
+                                .pathMatchers( HttpMethod.GET, "/reports/api/v1/reports" ).hasAnyAuthority("SCOPE_ADVISER", "SCOPE_ADMIN")
                                 .anyExchange().authenticated()
                 )
                 .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
