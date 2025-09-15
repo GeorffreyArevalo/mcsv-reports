@@ -12,3 +12,7 @@ entrypoint:
   sqs:
     region: ${AWS_REGION_SQS_LISTER}
     queueUrl: ${URL_QUEUE_LISTENER}
+
+security:
+  jwt:
+    public-key-location: ${JWT_PUBLIC_KEY}
