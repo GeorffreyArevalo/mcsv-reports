@@ -29,6 +29,7 @@ public class SecurityConfig {
                                 .pathMatchers(
                                         "/reports/openapi/**"
                                 ).permitAll()
+                                .pathMatchers("/reports/actuator/health").permitAll()
                                 .pathMatchers( HttpMethod.GET, "/reports/api/v1/reports" ).hasAnyAuthority("SCOPE_ADVISER", "SCOPE_ADMIN")
                                 .anyExchange().authenticated()
                 )
