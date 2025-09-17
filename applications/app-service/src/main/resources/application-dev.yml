@@ -5,6 +5,9 @@ server:
 aws:
   dynamodb:
     region: "us-east-1"
+    tables:
+      approved-reports: "approved_reports"
+      reports: "reports"
 
 entrypoint:
   sqs:

@@ -16,5 +16,6 @@ public class Report {
     private String type;
     private Long value;
     private String timestamp;
+    private String consultedAt;
 
 }

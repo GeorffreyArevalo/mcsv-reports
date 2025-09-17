@@ -1,5 +1,6 @@
 package co.com.crediya.sqs.listener;
 
+import co.com.crediya.exceptions.CrediyaInternalServerErrorException;
 import co.com.crediya.usecase.ReportsUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,9 @@ public class SQSProcessor implements Function<Message, Mono<Void>> {
     @Override
     public Mono<Void> apply(Message message) {
         log.info("Received SQS message: {}", message.body());
-        return reportsUseCase.incrementValuesReports( Long.parseLong( message.body().replace("\"", "") ) );
+        return Mono.fromCallable( () -> Long.parseLong( message.body().replace("\"", "") ) )
+                .onErrorResume( e -> Mono.error( new CrediyaInternalServerErrorException(e.getMessage())) )
+                .flatMap( reportsUseCase::incrementValuesReports );
 
     }
 }

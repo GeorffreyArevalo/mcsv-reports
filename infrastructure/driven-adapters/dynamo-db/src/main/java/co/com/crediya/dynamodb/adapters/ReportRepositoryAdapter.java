@@ -6,6 +6,7 @@ import co.com.crediya.model.Report;
 import co.com.crediya.model.gateways.ReportRepositoryPort;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivecommons.utils.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedAsyncClient;
@@ -15,8 +16,9 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedAsyncClient;
 @Slf4j
 public class ReportRepositoryAdapter extends TemplateAdapterOperations<Report, String, ReportEntity> implements ReportRepositoryPort {
 
-    public ReportRepositoryAdapter(DynamoDbEnhancedAsyncClient connectionFactory, ObjectMapper mapper) {
-        super(connectionFactory, mapper, d -> mapper.map(d, Report.class ), "reports");
+    public ReportRepositoryAdapter(DynamoDbEnhancedAsyncClient connectionFactory, ObjectMapper mapper,
+                                   @Value("aws.dynamodb.region.tables.reports") String nameTable) {
+        super(connectionFactory, mapper, d -> mapper.map(d, Report.class ), nameTable);
     }
 
     @Override

@@ -21,6 +21,7 @@ public class ReportEntity {
     private String type;
     private Long value;
     private String timestamp;
+    private String consultedAt;
 
     @DynamoDbPartitionKey
     @DynamoDbAttribute("metric")
@@ -44,6 +45,12 @@ public class ReportEntity {
     public String getTimestamp() {
         return timestamp;
     }
+
+    @DynamoDbAttribute("consulted_at")
+    public String getConsultedAt() {
+        return consultedAt;
+    }
+
 
 
 }

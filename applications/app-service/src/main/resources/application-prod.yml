@@ -7,6 +7,9 @@ spring:
 aws:
   dynamodb:
     region: ${AWS_REGION_DYNAMO}
+    tables:
+      approved-reports: ${TABLE_APPROVED_REPORTS}
+      reports: ${TABLE_REPORTS}
 
 entrypoint:
   sqs:

@@ -6,6 +6,7 @@ import co.com.crediya.model.ApprovedReport;
 import co.com.crediya.model.Report;
 import co.com.crediya.model.gateways.ApprovedReportRepositoryPort;
 import co.com.crediya.model.gateways.ReportRepositoryPort;
+import co.com.crediya.ports.SecurityAuthenticationPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,9 @@ class ReportsUseCaseTest {
 
     @Mock
     private ReportRepositoryPort reportRepository;
+
+    @Mock
+    private SecurityAuthenticationPort securityAuthenticationPort;
 
     @InjectMocks
     private ReportsUseCase reportsUseCase;
@@ -102,6 +106,7 @@ class ReportsUseCaseTest {
     void testFindByMetricExisting() {
         when(approvedReportRepository.findByMetric("metric-test")).thenReturn(Mono.just(approvedReport));
         when(reportRepository.saveReport(any(Report.class))).thenReturn(Mono.empty());
+        when( securityAuthenticationPort.getSubjectToken() ).thenReturn(Mono.just("arevalo@gmail.com"));
 
         StepVerifier.create(reportsUseCase.findByMetric("metric-test"))
                 .expectNextMatches(r -> r.getMetric().equals(approvedReport.getMetric())
