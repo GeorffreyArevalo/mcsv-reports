@@ -12,6 +12,7 @@ import reactor.test.StepVerifier;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedAsyncClient;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class ReportRepositoryAdapterTest {
@@ -47,6 +48,23 @@ class ReportRepositoryAdapterTest {
         when(mapper.map(model, ReportEntity.class)).thenReturn(entity);
 
         repositoryAdapter = spy(new ReportRepositoryAdapter(dynamoDbEnhancedAsyncClient, mapper, "reports"));
+    }
+
+
+    @Test
+    void testReportEntitySettersAndGetters() {
+        ReportEntity entity = new ReportEntity();
+        entity.setMetric("Memory");
+        entity.setType("MB");
+        entity.setValue(2048L);
+        entity.setTimestamp("2025-09-17T14:10:00Z");
+        entity.setConsultedAt("2025-09-17T14:15:00Z");
+
+        assertEquals("Memory", entity.getMetric());
+        assertEquals("MB", entity.getType());
+        assertEquals(2048L, entity.getValue());
+        assertEquals("2025-09-17T14:10:00Z", entity.getTimestamp());
+        assertEquals("2025-09-17T14:15:00Z", entity.getConsultedAt());
     }
 
     @Test
