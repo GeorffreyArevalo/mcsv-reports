@@ -75,7 +75,7 @@ public class TemplateAdapterOperationsTest {
                 .thenReturn(CompletableFuture.completedFuture(null));
 
         ApprovedReportRepositoryAdapter dynamoDBTemplateAdapter =
-                new ApprovedReportRepositoryAdapter(dynamoDbEnhancedAsyncClient, mapper);
+                new ApprovedReportRepositoryAdapter(dynamoDbEnhancedAsyncClient, mapper, "approved_reports");
 
         StepVerifier.create(dynamoDBTemplateAdapter.save(model))
                 .expectNext(model)
@@ -93,7 +93,7 @@ public class TemplateAdapterOperationsTest {
 
 
         ApprovedReportRepositoryAdapter dynamoDBTemplateAdapter =
-                new ApprovedReportRepositoryAdapter(dynamoDbEnhancedAsyncClient, mapper);
+                new ApprovedReportRepositoryAdapter(dynamoDbEnhancedAsyncClient, mapper, "approved_reports");
 
         StepVerifier.create(dynamoDBTemplateAdapter.getById("id"))
                 .expectNext(model)  // aquí ya no null
@@ -109,7 +109,7 @@ public class TemplateAdapterOperationsTest {
                 .thenReturn(CompletableFuture.completedFuture(modelEntity));
 
         ApprovedReportRepositoryAdapter dynamoDBTemplateAdapter =
-                new ApprovedReportRepositoryAdapter(dynamoDbEnhancedAsyncClient, mapper);
+                new ApprovedReportRepositoryAdapter(dynamoDbEnhancedAsyncClient, mapper, "approved_reports");
 
         StepVerifier.create(dynamoDBTemplateAdapter.delete(model))
                 .expectNext(model)
@@ -125,7 +125,7 @@ public class TemplateAdapterOperationsTest {
         when(mapper.map(modelEntity, ApprovedReport.class)).thenReturn(model);
 
         ApprovedReportRepositoryAdapter dynamoDBTemplateAdapter =
-                new ApprovedReportRepositoryAdapter(dynamoDbEnhancedAsyncClient, mapper);
+                new ApprovedReportRepositoryAdapter(dynamoDbEnhancedAsyncClient, mapper, "approved_reports");
 
         StepVerifier.create(dynamoDBTemplateAdapter.updateItem(model))
                 .expectNext(model)

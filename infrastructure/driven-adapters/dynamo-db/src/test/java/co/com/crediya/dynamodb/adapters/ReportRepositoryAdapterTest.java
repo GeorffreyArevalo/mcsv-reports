@@ -46,7 +46,7 @@ class ReportRepositoryAdapterTest {
         when(mapper.map(entity, Report.class)).thenReturn(model);
         when(mapper.map(model, ReportEntity.class)).thenReturn(entity);
 
-        repositoryAdapter = spy(new ReportRepositoryAdapter(dynamoDbEnhancedAsyncClient, mapper));
+        repositoryAdapter = spy(new ReportRepositoryAdapter(dynamoDbEnhancedAsyncClient, mapper, "reports"));
     }
 
     @Test
