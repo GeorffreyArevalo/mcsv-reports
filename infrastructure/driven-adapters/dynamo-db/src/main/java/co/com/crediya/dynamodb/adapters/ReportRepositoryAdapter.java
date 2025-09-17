@@ -17,7 +17,7 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedAsyncClient;
 public class ReportRepositoryAdapter extends TemplateAdapterOperations<Report, String, ReportEntity> implements ReportRepositoryPort {
 
     public ReportRepositoryAdapter(DynamoDbEnhancedAsyncClient connectionFactory, ObjectMapper mapper,
-                                   @Value("aws.dynamodb.region.tables.reports") String nameTable) {
+                                   @Value("${aws.dynamodb.tables.reports}") String nameTable) {
         super(connectionFactory, mapper, d -> mapper.map(d, Report.class ), nameTable);
     }
 
