@@ -9,6 +9,7 @@ import co.com.crediya.model.Report;
 import co.com.crediya.model.gateways.ApprovedReportRepositoryPort;
 import co.com.crediya.model.gateways.ReportRepositoryPort;
 import co.com.crediya.ports.SecurityAuthenticationPort;
+import co.com.crediya.ports.SendEmailPort;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
@@ -21,6 +22,15 @@ public class ReportsUseCase {
     private final ApprovedReportRepositoryPort approvedReportRepository;
     private final ReportRepositoryPort reportRepository;
     private final SecurityAuthenticationPort securityAuthenticationPort;
+    private final SendEmailPort sendEmailPort;
+
+
+    public Mono<Void> getDailyReport() {
+        return Mono.zip(
+                approvedReportRepository.findByMetric(CodesMetrics.METRIC_INCREASE_REPORTS_APPROVED.getValue()),
+                approvedReportRepository.findByMetric(CodesMetrics.METRIC_INCREASE_AMOUNT_REPORTS_APPROVED.getValue())
+        ).flatMap( reports  -> sendEmailPort.sendDailyReportEmail(reports.getT1().getValue(), reports.getT2().getValue()) );
+    }
 
     public Mono<Void> incrementValuesReports(Long amount) {
         return Mono.zip(
