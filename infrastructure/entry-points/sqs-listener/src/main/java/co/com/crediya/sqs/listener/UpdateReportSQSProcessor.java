@@ -10,16 +10,16 @@ import software.amazon.awssdk.services.sqs.model.Message;
 
 import java.util.function.Function;
 
-@Service
+@Service("listenerSqsUpdateReport")
 @RequiredArgsConstructor
 @Slf4j
-public class SQSProcessor implements Function<Message, Mono<Void>> {
+public class UpdateReportSQSProcessor implements Function<Message, Mono<Void>> {
 
     private final ReportsUseCase reportsUseCase;
 
     @Override
     public Mono<Void> apply(Message message) {
-        log.info("Received SQS message: {}", message.body());
+        log.info("Received SQS update report message: {}", message.body());
         return Mono.fromCallable( () -> Long.parseLong( message.body().replace("\"", "") ) )
                 .onErrorResume( e -> Mono.error( new CrediyaInternalServerErrorException(e.getMessage())) )
                 .flatMap( reportsUseCase::incrementValuesReports );

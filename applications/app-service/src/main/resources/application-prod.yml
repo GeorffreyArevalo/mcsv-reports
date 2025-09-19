@@ -5,6 +5,8 @@ spring:
     import: ${AWS_NAME_SECRET_MANAGER}
 
 aws:
+  ses:
+    region: ${DAILY_REPORT_SQS_REGION}
   dynamodb:
     region: ${AWS_REGION_DYNAMO}
     tables:
@@ -14,8 +16,14 @@ aws:
 entrypoint:
   sqs:
     region: ${AWS_REGION_SQS_LISTER}
-    queueUrl: ${URL_QUEUE_LISTENER}
+    queueUrlUpdateReport: ${URL_QUEUE_LISTENER}
+    queueUrlDailyReport: ${URL_QUEUE_DAILY_REPORT}
 
 security:
   jwt:
     public-key-location: ${JWT_PUBLIC_KEY}
+
+report:
+  email:
+    source: ${EMAIL_SOURCE_DAILY_REPORT}
+    destination: ${EMAIL_DESTINATION_DAILY_REPORT}

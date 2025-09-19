@@ -14,12 +14,12 @@ import static org.mockito.Mockito.*;
 class SQSProcessorTest {
 
     private ReportsUseCase reportsUseCase;
-    private SQSProcessor sqsProcessor;
+    private UpdateReportSQSProcessor sqsProcessor;
 
     @BeforeEach
     void setUp() {
         reportsUseCase = Mockito.mock(ReportsUseCase.class);
-        sqsProcessor = new SQSProcessor(reportsUseCase);
+        sqsProcessor = new UpdateReportSQSProcessor(reportsUseCase);
     }
 
     @Test

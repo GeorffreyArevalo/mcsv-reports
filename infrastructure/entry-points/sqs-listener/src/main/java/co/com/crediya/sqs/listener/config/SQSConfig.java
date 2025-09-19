@@ -1,6 +1,7 @@
 package co.com.crediya.sqs.listener.config;
 
 import co.com.crediya.sqs.listener.helper.SQSListener;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import reactor.core.publisher.Mono;
@@ -21,10 +22,32 @@ import java.util.function.Function;
 public class SQSConfig {
 
     @Bean
-    public SQSListener sqsListener(SqsAsyncClient client, SQSProperties properties, Function<Message, Mono<Void>> fn) {
+    public SQSListener sqsListenerUpdateReport(
+            SqsAsyncClient client,
+           SQSProperties properties,
+           @Qualifier("listenerSqsUpdateReport")
+           Function<Message, Mono<Void>> fn
+    ) {
         return SQSListener.builder()
                 .client(client)
                 .properties(properties)
+                .queueUrl( properties.queueUrlUpdateReport() )
+                .processor(fn)
+                .build()
+                .start();
+    }
+
+    @Bean
+    public SQSListener sqsListenerDailyReport(
+            SqsAsyncClient client,
+            SQSProperties properties,
+            @Qualifier("listenerSqsDailyReport")
+            Function<Message, Mono<Void>> fn
+    ) {
+        return SQSListener.builder()
+                .client(client)
+                .properties(properties)
+                .queueUrl( properties.queueUrlDailyReport() )
                 .processor(fn)
                 .build()
                 .start();

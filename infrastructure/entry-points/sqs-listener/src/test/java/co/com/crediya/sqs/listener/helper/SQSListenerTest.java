@@ -1,6 +1,6 @@
 package co.com.crediya.sqs.listener.helper;
 
-import co.com.crediya.sqs.listener.SQSProcessor;
+import co.com.crediya.sqs.listener.UpdateReportSQSProcessor;
 import co.com.crediya.sqs.listener.config.SQSProperties;
 import co.com.crediya.usecase.ReportsUseCase;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,7 +61,7 @@ class SQSListenerTest {
         var sqsListener = SQSListener.builder()
                 .client(asyncClient)
                 .properties(sqsProperties)
-                .processor(new SQSProcessor(reportsUseCase))
+                .processor(new UpdateReportSQSProcessor(reportsUseCase))
                 .operation("operation")
                 .build();
 

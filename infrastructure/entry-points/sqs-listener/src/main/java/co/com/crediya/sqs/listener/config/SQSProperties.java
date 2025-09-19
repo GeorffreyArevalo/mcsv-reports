@@ -5,7 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "entrypoint.sqs")
 public record SQSProperties(
         String region,
-        String queueUrl,
+        String queueUrlUpdateReport,
+        String queueUrlDailyReport,
         int waitTimeSeconds,
         int visibilityTimeoutSeconds,
         int maxNumberOfMessages,

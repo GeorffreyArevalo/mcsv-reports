@@ -14,8 +14,14 @@ aws:
 entrypoint:
   sqs:
     region: "us-east-1"
-    queueUrl: "https://sqs.us-east-1.amazonaws.com/119694354572/reports-listener"
+    queueUrlUpdateReport: "https://sqs.us-east-1.amazonaws.com/119694354572/reports-listener"
+    queueUrlDailyReport: "https://sqs.us-east-1.amazonaws.com/119694354572/daily-report"
 
 security:
   jwt:
     public-key-location: ${JWT_PUBLIC_KEY}
+
+report:
+  email:
+    source: georffreyarevalo@gmail.com
+    destination: georffrey10@gmail.com
