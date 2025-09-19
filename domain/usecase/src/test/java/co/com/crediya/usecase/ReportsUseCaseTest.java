@@ -7,6 +7,7 @@ import co.com.crediya.model.Report;
 import co.com.crediya.model.gateways.ApprovedReportRepositoryPort;
 import co.com.crediya.model.gateways.ReportRepositoryPort;
 import co.com.crediya.ports.SecurityAuthenticationPort;
+import co.com.crediya.ports.SendEmailPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,6 +36,9 @@ class ReportsUseCaseTest {
     @Mock
     private SecurityAuthenticationPort securityAuthenticationPort;
 
+    @Mock
+    private SendEmailPort sendEmailPort;
+
     @InjectMocks
     private ReportsUseCase reportsUseCase;
 
@@ -47,6 +51,31 @@ class ReportsUseCaseTest {
                 .value(5L)
                 .lastUpdated(LocalDateTime.now().toString())
                 .build();
+    }
+
+    @Test
+    void shouldSendDailyReportSuccessfully() {
+
+        ApprovedReport reportCount = ApprovedReport.builder()
+                .metric(CodesMetrics.METRIC_INCREASE_REPORTS_APPROVED.getValue())
+                .value(5L).build();
+
+        ApprovedReport reportAmount = ApprovedReport.builder()
+                .metric(CodesMetrics.METRIC_INCREASE_AMOUNT_REPORTS_APPROVED.getValue())
+                .value(1000L).build();
+
+        when(approvedReportRepository.findByMetric(CodesMetrics.METRIC_INCREASE_REPORTS_APPROVED.getValue()))
+                .thenReturn(Mono.just(reportCount));
+        when(approvedReportRepository.findByMetric(CodesMetrics.METRIC_INCREASE_AMOUNT_REPORTS_APPROVED.getValue()))
+                .thenReturn(Mono.just(reportAmount));
+
+        when(sendEmailPort.sendDailyReportEmail(5L, 1000L)).thenReturn(Mono.empty());
+
+
+        StepVerifier.create(reportsUseCase.getDailyReport())
+                .verifyComplete();
+
+        verify(sendEmailPort).sendDailyReportEmail(5L, 1000L);
     }
 
     @Test

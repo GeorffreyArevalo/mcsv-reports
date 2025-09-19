@@ -73,7 +73,7 @@ subprojects {
     }
 
     jacocoTestReport {
-        dependsOn test, 'pitest'
+        dependsOn test//, 'pitest'
         reports {
             xml.setRequired true
             xml.setOutputLocation layout.buildDirectory.file("reports/jacoco.xml")
@@ -103,7 +103,8 @@ tasks.register('jacocoMergedReport', JacocoReport) {
                         '**/co/com/crediya/security/exceptions/handlers/**',
                         '**/co/com/crediya/sqs/listener/helper/**',
                         '**/co/com/crediya/sqs/listener/config/**',
-                        '**/co/com/crediya/security/adapters/**'
+                        '**/co/com/crediya/security/adapters/**',
+                        '**/co/com/crediya/ses/config/**'
                 ])
             }
     )

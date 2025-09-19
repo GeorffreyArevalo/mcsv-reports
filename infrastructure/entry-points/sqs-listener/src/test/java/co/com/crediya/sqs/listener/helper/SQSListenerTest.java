@@ -40,6 +40,7 @@ class SQSListenerTest {
         var sqsProperties = new SQSProperties(
                 "us-east-1",
                 "http://localhost:4566",
+                "http://localhost:4566",
                 20,
                 30,
                 10,

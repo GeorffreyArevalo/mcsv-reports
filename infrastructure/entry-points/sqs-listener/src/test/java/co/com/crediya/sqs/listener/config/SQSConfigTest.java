@@ -6,7 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import reactor.core.publisher.Mono;
-import software.amazon.awssdk.metrics.LoggingMetricPublisher;
 import software.amazon.awssdk.services.sqs.SqsAsyncClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,7 +26,7 @@ class SQSConfigTest {
     void init() {
         MockitoAnnotations.openMocks(this);
         when(sqsProperties.region()).thenReturn("us-east-1");
-        when(sqsProperties.queueUrl()).thenReturn("http://localhost:4566/00000000000/queue-sqs");
+        when(sqsProperties.queueUrlUpdateReport()).thenReturn("http://localhost:4566/00000000000/queue-sqs");
         when(sqsProperties.waitTimeSeconds()).thenReturn(20);
         when(sqsProperties.maxNumberOfMessages()).thenReturn(10);
         when(sqsProperties.numberOfThreads()).thenReturn(1);
@@ -35,7 +34,7 @@ class SQSConfigTest {
 
     @Test
     void configSQSListenerIsNotNull() {
-        assertThat(sqsConfig.sqsListener(sqsAsyncClient, sqsProperties, message -> Mono.empty())).isNotNull();
+        assertThat(sqsConfig.sqsListenerUpdateReport(sqsAsyncClient, sqsProperties, message -> Mono.empty())).isNotNull();
     }
 
 
