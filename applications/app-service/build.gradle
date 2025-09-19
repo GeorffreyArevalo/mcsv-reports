@@ -1,6 +1,7 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
+	implementation project(':ses')
 	implementation project(':security')
 	implementation project(':reactive-web')
 	implementation project(':sqs-listener')
